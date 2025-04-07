@@ -353,7 +353,6 @@ jobs:
             "vars",
             "rmarkdown",
             "randomForest",
-            "fpp",
             "reticulate",
             "ForecastComb"
           ))
