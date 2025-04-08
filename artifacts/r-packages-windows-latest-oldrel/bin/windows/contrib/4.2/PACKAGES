@@ -1,11 +1,12 @@
 Package: ahead
-Version: 0.16.2
-Depends: R (>= 3.5.0), foreach, snow, forecast, ggplot2, tseries,
-        randtoolbox, vars
-Imports: Rcpp (>= 1.0.6), misc, devtools
+Version: 0.18.0
+Depends: R (>= 3.5.0)
+Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
+        ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
 LinkingTo: Rcpp
-Suggests: caret, dfoptim, doSNOW, knitr, rmarkdown, testthat, forecast,
-        ForecastComb, fpp, glmnet, e1071, randomForest, roxygen2
+Suggests: caret, dfoptim, doSNOW, knitr, rmarkdown, testthat,
+        ForecastComb, fpp, glmnet, e1071, gam, quantreg, randomForest,
+        vars, roxygen2
 Archs: x64
 
 Package: bayesianrvfl
@@ -45,7 +46,7 @@ Imports: httr, jsonlite
 License: MIT
 
 Package: learningmachine
-Version: 2.7.2
+Version: 2.8.0
 Depends: randtoolbox, tseries, memoise, foreach, skimr, snow, doSNOW,
         ranger, glmnet, xgboost, e1071, MASS, caret
 Imports: Rcpp (>= 1.0.10), R6
@@ -57,9 +58,10 @@ License: BSD_3_clause + file LICENSE
 Archs: x64
 
 Package: misc
-Version: 0.4.0
+Version: 0.5.1
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow,
         parallel, compiler
+Suggests: ranger
 License: MIT
 
 Package: nnetsauce
