@@ -70,6 +70,10 @@ Depends: R (>= 3.3.3), forecast, memoise
 Imports: reticulate
 Suggests: roxygen2, reticulate
 
+Package: rvfl
+Version: 0.1.0
+Suggests: knitr, MASS, e1071, pscl, randomForest, forecast
+
 Package: simulatetimeseries
 Version: 0.2.0
 License: MIT
