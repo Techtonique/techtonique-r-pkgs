@@ -44,6 +44,10 @@
         "url": "https://github.com/thierrymoudiki/misc"
     },
     {
+        "package": "rvfl",
+        "url": "https://github.com/thierrymoudiki/rvfl"
+    },
+    {
         "package": "tisthemachinelearner", 
         "url": "https://github.com/Techtonique/tisthemachinelearner_r"
     }
