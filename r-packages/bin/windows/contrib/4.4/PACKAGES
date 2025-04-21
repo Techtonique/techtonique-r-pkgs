@@ -1,5 +1,5 @@
 Package: ahead
-Version: 0.18.0
+Version: 0.18.2
 Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
         ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
@@ -64,8 +64,13 @@ Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow,
 Suggests: ranger
 License: MIT
 
+Package: mlsauce
+Version: 0.22.4
+Imports: memoise, reticulate
+Suggests: Rcpp
+
 Package: nnetsauce
-Version: 0.20.6
+Version: 0.31.1
 Depends: R (>= 3.3.3), forecast, memoise
 Imports: reticulate
 Suggests: roxygen2, reticulate
