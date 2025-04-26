@@ -9,13 +9,6 @@ Suggests: caret, dfoptim, doSNOW, knitr, rmarkdown, testthat,
         vars, roxygen2
 Archs: x64
 
-Package: bayesianrvfl
-Version: 0.3.1
-Depends: cclust, memoise
-Imports: Rcpp, randtoolbox, foreach, memoise
-LinkingTo: Rcpp
-Archs: x64
-
 Package: bcn
 Version: 0.7.0
 Depends: R (>= 3.5.0)
@@ -44,18 +37,6 @@ Package: forecastingapi
 Version: 0.4.0
 Imports: httr, jsonlite
 License: MIT
-
-Package: learningmachine
-Version: 2.8.0
-Depends: randtoolbox, tseries, memoise, foreach, skimr, snow, doSNOW,
-        ranger, glmnet, xgboost, e1071, MASS, caret
-Imports: Rcpp (>= 1.0.10), R6
-LinkingTo: Rcpp
-Suggests: caret, e1071, ggplot2, glmnet, knitr, MASS, mlbench,
-        palmerpenguins, pkgbuild, pROC, ranger, reshape2, rmarkdown,
-        roxygen2, testthat (>= 3.0.0), xgboost
-License: BSD_3_clause + file LICENSE
-Archs: x64
 
 Package: misc
 Version: 0.5.1
