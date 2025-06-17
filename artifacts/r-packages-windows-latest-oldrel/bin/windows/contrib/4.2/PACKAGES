@@ -1,12 +1,11 @@
 Package: ahead
-Version: 0.19.0
+Version: 0.20.0
 Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
         ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
 LinkingTo: Rcpp
-Suggests: caret, dfoptim, doSNOW, knitr, rmarkdown, testthat,
-        ForecastComb, fpp, glmnet, e1071, gam, quantreg, randomForest,
-        vars, roxygen2
+Suggests: caret, dfoptim, doSNOW, knitr, rmarkdown, testthat, fpp,
+        glmnet, e1071, gam, quantreg, randomForest, vars, roxygen2
 Archs: x64
 
 Package: bcn
@@ -25,12 +24,12 @@ Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
 License: file LICENSE
 
 Package: esgtoolkit
-Version: 1.2.2
+Version: 1.3.0
 Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
         VineCopula, randtoolbox
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
-Suggests: devtools, ggplot2, testthat
+Suggests: devtools, ggplot2, testthat, knitr
 Archs: x64
 
 Package: forecastingapi
