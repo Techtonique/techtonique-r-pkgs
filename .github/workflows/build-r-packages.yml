@@ -91,8 +91,7 @@ jobs:
             "vars",
             "rmarkdown", 
             "randomForest", 
-            "reticulate",
-            "ForecastComb"
+            "reticulate"
           ))
           pak::pkg_install("thierrymoudiki/misc")
         shell: Rscript {0}
@@ -353,8 +352,7 @@ jobs:
             "vars",
             "rmarkdown",
             "randomForest",
-            "reticulate",
-            "ForecastComb"
+            "reticulate"
           ))
           pak::pkg_install("thierrymoudiki/misc")
         shell: Rscript {0}
