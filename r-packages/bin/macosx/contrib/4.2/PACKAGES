@@ -1,20 +1,10 @@
-Package: ahead
-Version: 0.20.0
-Depends: R (>= 3.5.0)
-Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
-        ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
-LinkingTo: Rcpp
-Suggests: caret, dfoptim, doSNOW, knitr, rmarkdown, testthat, fpp,
-        glmnet, e1071, gam, quantreg, randomForest, vars, roxygen2
-MD5sum: 0b8d05d241b175e8d4079f127a25d185
-
 Package: bcn
 Version: 0.7.0
 Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 1.0.7), dfoptim
 LinkingTo: Rcpp
 Suggests: knitr, rmarkdown, randomForest, pROC, MASS
-MD5sum: 259a1cafeb02e52669a10d8695eca87b
+MD5sum: debb48c30583113c36abffd033c2424d
 
 Package: crossvalidation
 Version: 0.5.0
@@ -22,7 +12,7 @@ Depends: R (>= 3.5.0), doSNOW, foreach, scoringRules
 Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
         xgboost
 License: file LICENSE
-MD5sum: 224e8a3c527af41fe7e0dcd1f7c26fd8
+MD5sum: 7b8201387a2bb15816835816cf6a6a0b
 
 Package: esgtoolkit
 Version: 1.3.0
@@ -31,13 +21,13 @@ Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
 Suggests: devtools, ggplot2, testthat, knitr
-MD5sum: 80e972a2643d54498ef6fe788d07d78f
+MD5sum: bd3cfca2b06429287d040c1013da0424
 
 Package: forecastingapi
 Version: 0.4.0
 Imports: httr, jsonlite
 License: MIT
-MD5sum: a51d9bf906cb2754f49fe99ead5d905a
+MD5sum: 10fbc104f17a6a42f4654396afa212a9
 
 Package: misc
 Version: 0.5.1
@@ -45,27 +35,27 @@ Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow,
         parallel, compiler
 Suggests: ranger
 License: MIT
-MD5sum: 74967d617934299b69c380fb8faf1099
+MD5sum: bef124b53ec9fd440e04d3e12821843d
 
 Package: mlsauce
 Version: 0.22.4
 Imports: memoise, reticulate
 Suggests: Rcpp
-MD5sum: e5556d0c615b4f6b3e4db56f5a5653f7
+MD5sum: fc4075bef42bd58b537b18893835e92d
 
 Package: nnetsauce
 Version: 0.31.1
 Depends: R (>= 3.3.3), forecast, memoise
 Imports: reticulate
 Suggests: roxygen2, reticulate
-MD5sum: b397d60a997bf988d18766414a8a10a0
+MD5sum: df658c185a504bce45465bf0cf2fcc9a
 
 Package: rvfl
 Version: 0.1.0
 Suggests: knitr, MASS, e1071, pscl, randomForest, forecast
-MD5sum: 9d14d9d97f92f4ebe8c8b40fd2dc27bf
+MD5sum: 2a0067bf116cb667151c2079d96111fe
 
 Package: simulatetimeseries
 Version: 0.2.0
 License: MIT
-MD5sum: cb98922a3ab15b61d837e69be924dc8a
+MD5sum: 901ca54e2b6b2154922b03a32d9c786b
