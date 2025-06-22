@@ -4,7 +4,7 @@ Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 1.0.7), dfoptim
 LinkingTo: Rcpp
 Suggests: knitr, rmarkdown, randomForest, pROC, MASS
-MD5sum: 3596ea596cefd678c074514f33a733ee
+MD5sum: 44de99a11fbe1967ce3a9e10207dbe16
 
 Package: crossvalidation
 Version: 0.5.0
@@ -12,7 +12,7 @@ Depends: R (>= 3.5.0), doSNOW, foreach, scoringRules
 Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
         xgboost
 License: file LICENSE
-MD5sum: 504df2da096ea5dcca46392b924b1b08
+MD5sum: 11dcb01a305a85322066eda0633d1957
 
 Package: esgtoolkit
 Version: 1.3.0
@@ -21,13 +21,20 @@ Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
 Suggests: devtools, ggplot2, testthat, knitr
-MD5sum: ebedef40c5158049e34a0ce07edde316
+MD5sum: e7bfc509e3ba57f82579d49e3e02d4be
 
 Package: forecastingapi
 Version: 0.4.0
 Imports: httr, jsonlite
 License: MIT
-MD5sum: cd9d8024702bf6fbd8bef47e5ea3ac66
+MD5sum: 554eb2552d20fc57e1e6d0e9a7a5b942
+
+Package: matern32
+Version: 0.2.0
+Imports: Rcpp (>= 0.12.17), tseries
+LinkingTo: Rcpp
+Suggests: MASS, mda
+MD5sum: dbbac03607c7e995a5672c207bc4fa02
 
 Package: misc
 Version: 0.5.1
@@ -35,27 +42,27 @@ Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow,
         parallel, compiler
 Suggests: ranger
 License: MIT
-MD5sum: ea121b2104487a26bb6b24daa378b69c
+MD5sum: 31d4a97c95bfd5709324295937e95455
 
 Package: mlsauce
 Version: 0.22.4
 Imports: memoise, reticulate
 Suggests: Rcpp
-MD5sum: b2955e81f1858f4e7e697e2f535e05b5
+MD5sum: b230d8f13c3f620af986b5c2eb4ca8ef
 
 Package: nnetsauce
 Version: 0.31.1
 Depends: R (>= 3.3.3), forecast, memoise
 Imports: reticulate
 Suggests: roxygen2, reticulate
-MD5sum: 0a5fafeb1a914ab083283ea6fa2e9920
+MD5sum: f45bf47020ec8b823ad13e6e3352f2bc
 
 Package: rvfl
 Version: 0.1.0
 Suggests: knitr, MASS, e1071, pscl, randomForest, forecast
-MD5sum: 8d3ad42fb111d2fcbcf0fa4bce8e74b3
+MD5sum: 8cfcd7e2bfc57e6fd694dc068752fce6
 
 Package: simulatetimeseries
 Version: 0.2.0
 License: MIT
-MD5sum: b3caf160b2c94003e85872e28bafc8d0
+MD5sum: 16472ad7e20f7a70fe6c6a9f6fad8cb3

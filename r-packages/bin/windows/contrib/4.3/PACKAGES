@@ -27,6 +27,13 @@ Version: 0.4.0
 Imports: httr, jsonlite
 License: MIT
 
+Package: matern32
+Version: 0.2.0
+Imports: Rcpp (>= 0.12.17), tseries
+LinkingTo: Rcpp
+Suggests: MASS, mda
+Archs: x64
+
 Package: misc
 Version: 0.5.1
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow,
