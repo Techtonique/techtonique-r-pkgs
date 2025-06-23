@@ -1,5 +1,5 @@
 Package: ahead
-Version: 0.21.1
+Version: 0.21.2
 Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
         ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
@@ -46,7 +46,7 @@ Suggests: MASS, mda
 Archs: x64
 
 Package: misc
-Version: 0.5.1
+Version: 0.6.0
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow
 Suggests: knitr, ranger
 License: MIT
