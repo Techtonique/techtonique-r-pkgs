@@ -52,7 +52,7 @@ Suggests: knitr, ranger
 License: MIT
 
 Package: mlsauce
-Version: 0.22.4
+Version: 0.25.3
 Imports: memoise, reticulate
 Suggests: Rcpp
 
