@@ -21,16 +21,16 @@ Package: crossvalidation
 Version: 0.5.0
 Depends: R (>= 3.5.0), doSNOW, foreach, scoringRules
 Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
-        xgboost
+        xgboost, misc
 License: file LICENSE
 
 Package: esgtoolkit
-Version: 1.3.0
+Version: 1.4.0
 Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
-        VineCopula, randtoolbox
+        VineCopula, randtoolbox, zoo
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
-Suggests: devtools, ggplot2, testthat, knitr
+Suggests: devtools, ggplot2, testthat, knitr, misc
 Archs: x64
 
 Package: forecastingapi
@@ -42,19 +42,19 @@ Package: matern32
 Version: 0.2.0
 Imports: Rcpp (>= 0.12.17), tseries
 LinkingTo: Rcpp
-Suggests: MASS, mda
+Suggests: MASS, mda, misc
 Archs: x64
 
 Package: misc
-Version: 0.6.0
+Version: 0.7.0
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow
-Suggests: knitr, ranger
+Suggests: knitr, ranger, misc
 License: MIT
 
 Package: mlsauce
 Version: 0.25.3
 Imports: memoise, reticulate
-Suggests: Rcpp
+Suggests: Rcpp, misc
 
 Package: nnetsauce
 Version: 0.31.1
@@ -63,8 +63,8 @@ Imports: reticulate
 Suggests: roxygen2, reticulate
 
 Package: rvfl
-Version: 0.1.0
-Suggests: knitr, MASS, e1071, pscl, randomForest, forecast
+Version: 0.1.1
+Suggests: knitr, MASS, e1071, pscl, randomForest, forecast, misc
 
 Package: simulatetimeseries
 Version: 0.2.0

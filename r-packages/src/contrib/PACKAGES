@@ -7,7 +7,7 @@ LinkingTo: Rcpp
 Suggests: caret, dfoptim, doSNOW, knitr, rmarkdown, testthat, fpp,
         glmnet, e1071, gam, quantreg, randomForest, spatial, vars,
         roxygen2, ForecastComb
-MD5sum: 6b4e523d6cb08d24c06ad840d344f4b1
+MD5sum: a5d02a7757558548e5f54a76cf16f915
 NeedsCompilation: yes
 
 Package: bayesianrvfl
@@ -15,7 +15,8 @@ Version: 0.3.2
 Depends: cclust, memoise, mlbench, caret
 Imports: Rcpp, randtoolbox, foreach, memoise
 LinkingTo: Rcpp
-MD5sum: 83bac0c7d5a5d7d9a1f94fb2788288a7
+Suggests: misc
+MD5sum: c1e8e17dfb34fefca8306fd418f28f06
 NeedsCompilation: yes
 
 Package: bcn
@@ -24,33 +25,33 @@ Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 1.0.7), dfoptim
 LinkingTo: Rcpp
 Suggests: knitr, rmarkdown, randomForest, pROC, MASS
-MD5sum: 86e975c33e120ffeefecaa3236cf872e
+MD5sum: 09b00b47beed18d5177e487b7cb5a250
 NeedsCompilation: yes
 
 Package: crossvalidation
 Version: 0.5.0
 Depends: R (>= 3.5.0), doSNOW, foreach, scoringRules
 Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
-        xgboost
+        xgboost, misc
 License: file LICENSE
-MD5sum: fc6fc7c81b8854ef7fd4b8ec4b210259
+MD5sum: ecd6e6fa2aab87a7c455dbb9bb8c62b2
 NeedsCompilation: no
 
 Package: esgtoolkit
-Version: 1.3.0
+Version: 1.4.0
 Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
-        VineCopula, randtoolbox
+        VineCopula, randtoolbox, zoo
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
-Suggests: devtools, ggplot2, testthat, knitr
-MD5sum: 539c65848e3ee1ff92f0f64d8ca31f31
+Suggests: devtools, ggplot2, testthat, knitr, misc
+MD5sum: 2c37f7112e8a6166ebd2fa8ceaadc043
 NeedsCompilation: yes
 
 Package: forecastingapi
 Version: 0.4.0
 Imports: httr, jsonlite
 License: MIT
-MD5sum: 8c430384956e6165debb7acf8bcd872c
+MD5sum: 5866f7840de88455b71ec3a03d4b8e2d
 NeedsCompilation: no
 
 Package: learningmachine
@@ -61,32 +62,32 @@ Imports: Rcpp (>= 1.0.10), R6
 LinkingTo: Rcpp
 Suggests: caret, e1071, ggplot2, glmnet, knitr, MASS, mlbench,
         palmerpenguins, pkgbuild, pROC, ranger, reshape2, rmarkdown,
-        roxygen2, testthat (>= 3.0.0), xgboost
+        roxygen2, testthat (>= 3.0.0), xgboost, misc
 License: BSD_3_clause + file LICENSE
-MD5sum: 0fe365eb1740d6df5e330047b1e88418
+MD5sum: ef9db8714a1b6801f5c5065fc7e86294
 NeedsCompilation: yes
 
 Package: matern32
 Version: 0.2.0
 Imports: Rcpp (>= 0.12.17), tseries
 LinkingTo: Rcpp
-Suggests: MASS, mda
-MD5sum: 8a749d28927057eafd03d7cbfffde4c5
+Suggests: MASS, mda, misc
+MD5sum: 31f91b0deb46ec684b90ff2a6ef512f8
 NeedsCompilation: yes
 
 Package: misc
-Version: 0.6.0
+Version: 0.7.0
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow
-Suggests: knitr, ranger
+Suggests: knitr, ranger, misc
 License: MIT
-MD5sum: 37141b09bfa5e1ce8ef1ac2ff2b49c90
+MD5sum: ffc1aec85b340d144e8e69c79a9cc54a
 NeedsCompilation: no
 
 Package: mlsauce
 Version: 0.25.3
 Imports: memoise, reticulate
-Suggests: Rcpp
-MD5sum: 53c87a3297c711f20835627b5ee3bd38
+Suggests: Rcpp, misc
+MD5sum: 70c7e80b0b7c7b1408376d30c5ddc576
 NeedsCompilation: no
 
 Package: nnetsauce
@@ -94,26 +95,26 @@ Version: 0.31.1
 Depends: R (>= 3.3.3), forecast, memoise
 Imports: reticulate
 Suggests: roxygen2, reticulate
-MD5sum: cd675d493e890ca03d500f1a99367147
+MD5sum: 4a01cd8fac008d6e2d3f20c8b0847d55
 NeedsCompilation: no
 
 Package: rvfl
-Version: 0.1.0
-Suggests: knitr, MASS, e1071, pscl, randomForest, forecast
-MD5sum: 55de336f506d4c219b37361aecad078e
+Version: 0.1.1
+Suggests: knitr, MASS, e1071, pscl, randomForest, forecast, misc
+MD5sum: 43f6bcb1cc0bfd626fb2b07c54993b09
 NeedsCompilation: no
 
 Package: simulatetimeseries
 Version: 0.2.0
 License: MIT
-MD5sum: be08d3e656ed0d503d789f2fefeb0d32
+MD5sum: b29393df36afd8fef8545cdc86b339ed
 NeedsCompilation: no
 
 Package: tisthemachinelearner
-Version: 0.3.0
+Version: 0.3.1
 Depends: R (>= 3.5.0), reticulate (>= 1.18), Matrix
 Imports: reticulate, R6, Rcpp, RcppProgress
 LinkingTo: Rcpp, RcppProgress
-Suggests: MASS, testthat
-MD5sum: ce906237e5e6eb7d39796502a4830bc4
+Suggests: MASS, testthat, misc
+MD5sum: 0943ac3c77ccd0d40dfde141e22012dd
 NeedsCompilation: yes
