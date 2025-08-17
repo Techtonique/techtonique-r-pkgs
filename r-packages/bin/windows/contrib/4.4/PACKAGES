@@ -46,9 +46,9 @@ Suggests: MASS, mda, misc
 Archs: x64
 
 Package: misc
-Version: 0.8.0
+Version: 0.10.0
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow
-Suggests: knitr, ranger, xgboost, lightgbm, scam
+Suggests: knitr, ranger, xgboost, lightgbm, scam, survival
 License: MIT
 
 Package: mlsauce
