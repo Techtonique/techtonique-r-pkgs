@@ -54,5 +54,13 @@
     {
         "package": "matern32",
         "url": "https://github.com/thierrymoudiki/matern32"
+    },
+    {
+        "package": "ftsatoo",
+        "url": "https://github.com/thierrymoudiki/ftsatoo"
+    },
+    {
+        "package": "healthsimulation",
+        "url": "https://github.com/Techtonique/healthsimulation"
     }
 ]
