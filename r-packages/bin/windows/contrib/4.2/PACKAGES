@@ -25,9 +25,9 @@ Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
 License: file LICENSE
 
 Package: esgtoolkit
-Version: 1.4.0
+Version: 1.7.0
 Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
-        VineCopula, randtoolbox, zoo
+        VineCopula, randtoolbox, zoo, data.table
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
 Suggests: devtools, ggplot2, testthat, knitr, misc
