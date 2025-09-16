@@ -62,5 +62,9 @@
     {
         "package": "healthsimulation",
         "url": "https://github.com/Techtonique/healthsimulation"
+    },
+    {
+        "package": "stochasticscenarios",
+        "url": "https://github.com/Techtonique/stochasticscenarios"
     }
 ]
