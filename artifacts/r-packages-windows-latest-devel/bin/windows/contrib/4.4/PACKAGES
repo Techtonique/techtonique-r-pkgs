@@ -1,12 +1,12 @@
 Package: ahead
-Version: 0.24.0
-Depends: R (>= 3.5.0)
+Version: 0.27.2
+Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
         ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
 LinkingTo: Rcpp
 Suggests: caret, cclust, dfoptim, doSNOW, knitr, rmarkdown, testthat,
-        fpp, glmnet, e1071, gam, quantreg, randomForest, spatial, vars,
-        roxygen2, ForecastComb
+        fpp, fpp2, glmnet, e1071, gam, quantreg, randomForest, spatial,
+        vars, roxygen2, ForecastComb
 Archs: x64
 
 Package: bcn
@@ -18,14 +18,14 @@ Suggests: knitr, rmarkdown, randomForest, pROC, MASS
 Archs: x64
 
 Package: crossvalidation
-Version: 0.5.0
+Version: 0.6.0
 Depends: R (>= 3.5.0), doSNOW, foreach, scoringRules
 Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
         xgboost, misc
 License: file LICENSE
 
 Package: esgtoolkit
-Version: 1.7.0
+Version: 1.8.0
 Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
         VineCopula, randtoolbox, zoo, data.table
 Imports: Rcpp(>= 0.11.0)
@@ -46,7 +46,7 @@ Suggests: MASS, mda, misc
 Archs: x64
 
 Package: misc
-Version: 0.10.0
+Version: 0.10.1
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow
 Suggests: knitr, ranger, xgboost, lightgbm, scam, survival
 License: MIT
@@ -66,6 +66,7 @@ Package: rvfl
 Version: 0.1.1
 Suggests: knitr, MASS, e1071, pscl, randomForest, forecast, misc
 
-Package: simulatetimeseries
-Version: 0.2.0
-License: MIT
+Package: stochasticscenarios
+Version: 1.4.0
+Depends: methods
+License: GPL (>= 2)

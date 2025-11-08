@@ -1,13 +1,13 @@
 Package: ahead
-Version: 0.24.0
-Depends: R (>= 3.5.0)
+Version: 0.27.2
+Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
         ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
 LinkingTo: Rcpp
 Suggests: caret, cclust, dfoptim, doSNOW, knitr, rmarkdown, testthat,
-        fpp, glmnet, e1071, gam, quantreg, randomForest, spatial, vars,
-        roxygen2, ForecastComb
-MD5sum: 7036750f6ff476e21c6ab6cdd534e726
+        fpp, fpp2, glmnet, e1071, gam, quantreg, randomForest, spatial,
+        vars, roxygen2, ForecastComb
+MD5sum: 4a31723e8f2849732de825e449bcfc64
 
 Package: bcn
 Version: 0.7.0
@@ -15,64 +15,65 @@ Depends: R (>= 3.5.0)
 Imports: Rcpp (>= 1.0.7), dfoptim
 LinkingTo: Rcpp
 Suggests: knitr, rmarkdown, randomForest, pROC, MASS
-MD5sum: 82ae34b5746cde4db4fe6713b7b86e90
+MD5sum: 505d881ecc6cae4218f32ae049cac2f2
 
 Package: crossvalidation
-Version: 0.5.0
+Version: 0.6.0
 Depends: R (>= 3.5.0), doSNOW, foreach, scoringRules
 Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
         xgboost, misc
 License: file LICENSE
-MD5sum: 0931a73757a8d0e202faea2ef735e2ca
+MD5sum: f3e7e3add3e19798f0e03b3150f7725f
 
 Package: esgtoolkit
-Version: 1.7.0
+Version: 1.8.0
 Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
         VineCopula, randtoolbox, zoo, data.table
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
 Suggests: devtools, ggplot2, testthat, knitr, misc
-MD5sum: cf0e029d14653f100421415cebcc8abe
+MD5sum: 07e8788f56dd35f286a2f939584a5de1
 
 Package: forecastingapi
 Version: 0.4.0
 Imports: httr, jsonlite
 License: MIT
-MD5sum: 9aeea4f50dfb322fb4e2f4080e4999a3
+MD5sum: 6acddcb1608397c6654f4d792184b981
 
 Package: matern32
 Version: 0.2.0
 Imports: Rcpp (>= 0.12.17), tseries
 LinkingTo: Rcpp
 Suggests: MASS, mda, misc
-MD5sum: da4f5affe69b9751b3bc43ab6f84a1f5
+MD5sum: c2fa78690e2a739d59b1e2bd602aecd7
 
 Package: misc
-Version: 0.10.0
+Version: 0.10.1
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow
 Suggests: knitr, ranger, xgboost, lightgbm, scam, survival
 License: MIT
-MD5sum: 1a880f9046744c02dd6833796acb9fa8
+MD5sum: 6e8986382b49c7b27322f9ae3f17c647
 
 Package: mlsauce
 Version: 0.25.3
 Imports: memoise, reticulate
 Suggests: Rcpp, misc
-MD5sum: 1a58957f1602c76328e70967f551755a
+MD5sum: fbe2063b5f257c8387ac6afce42326d6
 
 Package: nnetsauce
 Version: 0.31.1
 Depends: R (>= 3.3.3), forecast, memoise
 Imports: reticulate
 Suggests: roxygen2, reticulate
-MD5sum: 597701536b29e68af8ada17ecfb006f3
+MD5sum: 83999f5c074c3bc4e077ca67e0ad1fbf
 
 Package: rvfl
 Version: 0.1.1
 Suggests: knitr, MASS, e1071, pscl, randomForest, forecast, misc
-MD5sum: f18fa154a1d9311859824101b1ca9ff3
+MD5sum: 4aa350afab8f0860ff4f533c551de164
 
-Package: simulatetimeseries
-Version: 0.2.0
-License: MIT
-MD5sum: 54c0f311a150ec8344cdd116fa293687
+Package: stochasticscenarios
+Version: 1.4.0
+Depends: methods
+License: GPL (>= 2)
+MD5sum: 6bb511a9f044693ebe0cbb18cd926878
