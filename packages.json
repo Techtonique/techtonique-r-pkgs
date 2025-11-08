@@ -66,5 +66,9 @@
     {
         "package": "stochasticscenarios",
         "url": "https://github.com/Techtonique/stochasticscenarios"
+    },
+    {
+        "package": "unifiedml",
+        "url": "https://github.com/Techtonique/unifiedml"
     }
 ]
