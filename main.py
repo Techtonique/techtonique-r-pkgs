@@ -1,17 +1,17 @@
 import json
 import os
 import uvicorn
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 
 from fastapi import FastAPI, File, Request, Query, HTTPException, Depends
-from fastapi.responses import RedirectResponse, HTMLResponse, FileResponse
+from fastapi.responses import RedirectResponse, HTMLResponse, FileResponse, Response
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from sqlalchemy import create_engine, Column, Integer, String, Date, desc, text
+from sqlalchemy import create_engine, Column, Integer, String, Date, desc, text, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from config import DOC_URLS
@@ -67,6 +67,231 @@ app.mount("/images", StaticFiles(directory="templates/images"), name="images")
 
 templates = Jinja2Templates(directory="templates")
 
+# ============================================================================
+# BADGE GENERATION FUNCTIONS
+# ============================================================================
+
+def format_number(num: int) -> str:
+    """Format large numbers with k/M suffix"""
+    if num >= 1_000_000:
+        return f"{num / 1_000_000:.1f}M"
+    if num >= 1_000:
+        return f"{num / 1_000:.1f}k"
+    return str(num)
+
+def generate_badge_svg(label: str, value: str, color: str = 'blue') -> str:
+    """Generate an SVG badge similar to shields.io/CRAN style"""
+    
+    # Color schemes matching CRAN badges
+    colors = {
+        'blue': '#007ec6',
+        'green': '#4c1',
+        'brightgreen': '#44cc11',
+        'orange': '#fe7d37',
+        'red': '#e05d44',
+        'lightgrey': '#9f9f9f',
+        'yellowgreen': '#a4a61d',
+        'yellow': '#dfb317'
+    }
+    
+    right_color = colors.get(color, colors['blue'])
+    left_color = '#555'
+    
+    # Calculate text widths (approximate, matches shields.io closely)
+    char_width = 6.5
+    padding = 10
+    left_width = int(len(label) * char_width + padding)
+    right_width = int(len(str(value)) * char_width + padding)
+    total_width = left_width + right_width
+    
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{total_width}" height="20" role="img" aria-label="{label}: {value}">
+    <title>{label}: {value}</title>
+    <linearGradient id="s" x2="0" y2="100%">
+        <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+        <stop offset="1" stop-opacity=".1"/>
+    </linearGradient>
+    <clipPath id="r">
+        <rect width="{total_width}" height="20" rx="3" fill="#fff"/>
+    </clipPath>
+    <g clip-path="url(#r)">
+        <rect width="{left_width}" height="20" fill="{left_color}"/>
+        <rect x="{left_width}" width="{right_width}" height="20" fill="{right_color}"/>
+        <rect width="{total_width}" height="20" fill="url(#s)"/>
+    </g>
+    <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
+        <text aria-hidden="true" x="{left_width * 10 // 2}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="{(left_width - padding) * 10}">{label}</text>
+        <text x="{left_width * 10 // 2}" y="140" transform="scale(.1)" fill="#fff" textLength="{(left_width - padding) * 10}">{label}</text>
+        <text aria-hidden="true" x="{(left_width + right_width // 2) * 10}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="{(right_width - padding) * 10}">{value}</text>
+        <text x="{(left_width + right_width // 2) * 10}" y="140" transform="scale(.1)" fill="#fff" textLength="{(right_width - padding) * 10}">{value}</text>
+    </g>
+</svg>'''
+    
+    return svg
+
+def get_download_count_from_db(package: str, period: str, db: Session) -> int:
+    """Get download count for a package from the database"""
+    today = date.today()
+    
+    if period == "last-day":
+        start_date = today - timedelta(days=1)
+    elif period == "last-week":
+        start_date = today - timedelta(days=7)
+    elif period == "last-month":
+        start_date = today - timedelta(days=30)
+    elif period == "grand-total":
+        start_date = None
+    else:
+        raise HTTPException(status_code=400, detail="Invalid period")
+    
+    query = db.query(func.sum(Download.count)).filter(
+        Download.package == package
+    )
+    
+    if start_date:
+        query = query.filter(Download.date >= start_date)
+    
+    result = query.scalar()
+    return result if result else 0
+
+# ============================================================================
+# BADGE ENDPOINTS
+# ============================================================================
+
+@app.get("/badges/downloads/{period}/{package}.svg")
+async def badge_svg(
+    package: str,
+    period: str,
+    color: str = Query(default="blue", description="Badge color"),
+    db: Session = Depends(get_db)
+):
+    """
+    Generate an SVG badge for package downloads
+    
+    - **package**: Package name
+    - **period**: Time period (last-day, last-week, last-month, grand-total)
+    - **color**: Badge color (blue, green, brightgreen, orange, red, yellow, yellowgreen, lightgrey, auto)
+    
+    Example: /badges/downloads/last-month/ggplot2.svg?color=brightgreen
+    """
+    
+    # Map period to label
+    period_labels = {
+        "last-day": "downloads/day",
+        "last-week": "downloads/week",
+        "last-month": "downloads/month",
+        "grand-total": "total downloads"
+    }
+    
+    label = period_labels.get(period, "downloads")
+    
+    try:
+        count = get_download_count_from_db(package, period, db)
+        value = format_number(count)
+        
+        # Auto color based on download count
+        if color == "auto":
+            if count > 100_000:
+                color = "brightgreen"
+            elif count > 10_000:
+                color = "green"
+            elif count > 1_000:
+                color = "yellowgreen"
+            elif count > 100:
+                color = "blue"
+            else:
+                color = "lightgrey"
+        
+        svg_content = generate_badge_svg(label, value, color)
+        
+        return Response(
+            content=svg_content,
+            media_type="image/svg+xml",
+            headers={
+                "Cache-Control": "max-age=3600",  # Cache for 1 hour
+                "Content-Disposition": f"inline; filename={package}-{period}.svg"
+            }
+        )
+    except Exception as e:
+        # Return error badge
+        svg_content = generate_badge_svg(label, "error", "lightgrey")
+        return Response(content=svg_content, media_type="image/svg+xml")
+
+@app.get("/downloads/total/{period}/{package}")
+async def get_total_downloads(
+    package: str, 
+    period: str,
+    db: Session = Depends(get_db)
+):
+    """
+    Get total download count as JSON (CRAN logs API compatible)
+    
+    Returns download statistics for the specified package and period
+    """
+    try:
+        count = get_download_count_from_db(package, period, db)
+        
+        # Calculate date range based on period
+        end_date = date.today()
+        if period == "last-day":
+            start_date = end_date - timedelta(days=1)
+        elif period == "last-week":
+            start_date = end_date - timedelta(days=7)
+        elif period == "last-month":
+            start_date = end_date - timedelta(days=30)
+        else:
+            start_date = None
+        
+        return [{
+            "start": str(start_date) if start_date else None,
+            "end": str(end_date),
+            "downloads": count,
+            "package": package
+        }]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/downloads/daily/{package}")
+async def get_daily_downloads(
+    package: str,
+    from_date: str = Query(None, description="Start date (YYYY-MM-DD)"),
+    to_date: str = Query(None, description="End date (YYYY-MM-DD)"),
+    db: Session = Depends(get_db)
+):
+    """
+    Get daily download counts for a package (CRAN logs API compatible)
+    
+    Returns detailed daily download statistics
+    """
+    try:
+        query = db.query(
+            Download.date,
+            func.sum(Download.count).label('count')
+        ).filter(
+            Download.package == package
+        )
+        
+        if from_date:
+            query = query.filter(Download.date >= from_date)
+        if to_date:
+            query = query.filter(Download.date <= to_date)
+        
+        results = query.group_by(Download.date).order_by(Download.date).all()
+        
+        return [
+            {
+                "date": str(row.date),
+                "count": row.count,
+                "package": package
+            }
+            for row in results
+        ]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# ============================================================================
+# EXISTING ENDPOINTS (unchanged)
+# ============================================================================
+
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
 async def get_index(request: Request, db: Session = Depends(get_db)):
     try:
@@ -85,7 +310,7 @@ async def get_index(request: Request, db: Session = Depends(get_db)):
                         "version": version,
                         "platforms": {
                             "source": {
-                                "status": "SUCCESS",  # If file exists, it's a success
+                                "status": "SUCCESS",
                                 "build_time": datetime.fromtimestamp(tar_gz.stat().st_mtime).strftime("%Y-%m-%d %H:%M:%S")
                             }
                         }
@@ -124,7 +349,6 @@ async def get_index(request: Request, db: Session = Depends(get_db)):
                 platform = build_info.get("platform", "unknown")
                 for pkg_name, pkg_info in build_info.get("packages", {}).items():
                     if pkg_name not in packages:
-                        # Package was in build status but no file exists
                         if pkg_name not in packages:
                             packages[pkg_name] = {
                                 "package": pkg_name,
@@ -132,7 +356,7 @@ async def get_index(request: Request, db: Session = Depends(get_db)):
                                 "platforms": {}
                             }
                         packages[pkg_name]["platforms"][platform] = {
-                            "status": "FAILED",  # No file exists, so it failed
+                            "status": "FAILED",
                             "build_time": pkg_info.get("build_time", ""),
                             "error_message": "No package file found"
                         }
@@ -162,10 +386,8 @@ async def download_package(
     try:
         today = date.today()
         
-        # Log the incoming request
         print(f"Download request: package={package}, version={version}, platform={platform}")
         
-        # Get or create download record
         download = db.query(Download).filter(
             Download.package == package,
             Download.date == today,
@@ -181,7 +403,6 @@ async def download_package(
             )
             db.add(download)
         else:
-            # Use SQL update for atomic increment
             db.query(Download).filter(
                 Download.id == download.id
             ).update(
@@ -191,16 +412,14 @@ async def download_package(
         
         db.commit()
         
-        # Construct package URL based on platform
-        base_url = "https://r-packages.techtonique.net"  # Using the existing domain
+        base_url = "https://r-packages.techtonique.net"
         if platform == "windows":
             package_url = f"{base_url}/bin/windows/contrib/{r_version}/{package}_{version}.zip"
         elif platform == "macos":
             package_url = f"{base_url}/bin/macosx/contrib/{package}_{version}.tgz"
-        else:  # source
+        else:
             package_url = f"{base_url}/src/contrib/{package}_{version}.tar.gz"
         
-        # Log the redirect URL
         print(f"Redirecting to: {package_url}")
         
         return RedirectResponse(url=package_url)
@@ -219,14 +438,12 @@ async def download_source_package(
         today = date.today()
         file_path = f"r-packages/src/contrib/{package}_{version}.tar.gz"
         
-        # Check if file exists
         if not os.path.exists(file_path):
             raise HTTPException(
                 status_code=404,
                 detail=f"Package file not found: {file_path}"
             )
             
-        # Record the download
         download = db.query(Download).filter(
             Download.package == package,
             Download.date == today,
@@ -317,21 +534,17 @@ async def get_today_stats(db: Session = Depends(get_db)):
 @app.get("/bin/macosx/contrib/{r_version}/PACKAGES.rds")
 async def serve_packages_file(request: Request, r_version: str = None):
     try:
-        # Remove the leading slash and add r-packages prefix
         url_path = request.url.path.lstrip('/')
         file_path = f"r-packages/{url_path}"
         
-        # Debug logging
         print(f"Attempting to serve PACKAGES file from: {file_path}")
 
-        # Check if file exists
         if not os.path.exists(file_path):
             raise HTTPException(
                 status_code=404, 
                 detail=f"PACKAGES file not found at: {file_path}"
             )
 
-        # Determine media type
         if file_path.endswith('.gz'):
             media_type = 'application/gzip'
         elif file_path.endswith('.rds'):
@@ -358,23 +571,19 @@ async def serve_package(
     db: Session = Depends(get_db)
 ):
     try:
-        # Skip if requesting PACKAGES files
         if file_name in ["PACKAGES", "PACKAGES.gz", "PACKAGES.rds"]:
             raise HTTPException(status_code=404, detail="Use PACKAGES endpoint")
             
-        # Remove the leading slash and add r-packages prefix
         url_path = request.url.path.lstrip('/')
         file_path = f"r-packages/{url_path}"
         
-        # Parse package name and version from file_name
         parts = file_name.rsplit("_", 1)
         if len(parts) != 2:
             raise HTTPException(status_code=400, detail="Invalid file name format")
         
         package = parts[0]
-        version = parts[1].split(".")[0]  # Get version before file extension
+        version = parts[1].split(".")[0]
         
-        # Determine platform from path
         if "windows" in str(request.url):
             platform = "windows"
         elif "macosx" in str(request.url):
@@ -382,14 +591,12 @@ async def serve_package(
         else:
             platform = "source"
 
-        # Check if file exists
         if not os.path.exists(file_path):
             raise HTTPException(
                 status_code=404, 
                 detail=f"Package file not found: {file_path}"
             )
 
-        # Record the download
         today = date.today()
         download = db.query(Download).filter(
             Download.package == package,
@@ -415,7 +622,6 @@ async def serve_package(
         
         db.commit()
         
-        # Log the download
         print(f"Package download: {package} {version} for {platform}")
         
         return FileResponse(
@@ -431,7 +637,6 @@ async def serve_package(
 @app.get("/downloads", response_class=HTMLResponse)
 async def get_downloads(request: Request, db: Session = Depends(get_db)):
     try:
-        # Use SQL to aggregate downloads by month and package
         monthly_downloads = db.execute(
             text("""
                 SELECT 
@@ -445,7 +650,6 @@ async def get_downloads(request: Request, db: Session = Depends(get_db)):
             """)
         ).fetchall()
         
-        # Organize the data by month and package
         downloads_by_month = {}
         for row in monthly_downloads:
             month_str = row.month.strftime("%Y-%m")
@@ -480,7 +684,6 @@ async def get_packages(request: Request, db: Session = Depends(get_db)):
         packages = {}
         r_packages_dir = Path("r-packages")
         
-        # Get latest version for each package from r-packages/src/contrib
         src_contrib = r_packages_dir / "src" / "contrib"
         if src_contrib.exists():
             for tar_gz in src_contrib.glob("*.tar.gz"):
@@ -492,13 +695,12 @@ async def get_packages(request: Request, db: Session = Depends(get_db)):
                         "version": version,
                         "platforms": {
                             "source": {
-                                "status": "SUCCESS",  # If file exists, it's a success
+                                "status": "SUCCESS",
                                 "build_time": datetime.fromtimestamp(tar_gz.stat().st_mtime).strftime("%Y-%m-%d %H:%M:%S")
                             }
                         }
                     }
 
-        # Check Windows binaries for all R versions
         for r_version in ["4.2", "4.3", "4.4"]:
             win_dir = r_packages_dir / "bin" / "windows" / "contrib" / r_version
             if win_dir.exists():
@@ -511,7 +713,6 @@ async def get_packages(request: Request, db: Session = Depends(get_db)):
                             "r_version": r_version
                         }
 
-        # Check macOS binaries for all R versions
         for r_version in ["4.2", "4.3", "4.4"]:
             mac_dir = r_packages_dir / "bin" / "macosx" / "contrib" / r_version
             if mac_dir.exists():
@@ -524,14 +725,12 @@ async def get_packages(request: Request, db: Session = Depends(get_db)):
                             "r_version": r_version
                         }
 
-        # Read build status files to get list of all packages that should exist
         for json_file in r_packages_dir.glob("build_status_*.json"):
             with open(json_file) as f:
                 build_info = json.load(f)
                 platform = build_info.get("platform", "unknown")
                 for pkg_name, pkg_info in build_info.get("packages", {}).items():
                     if pkg_name not in packages:
-                        # Package was in build status but no file exists
                         if pkg_name not in packages:
                             packages[pkg_name] = {
                                 "package": pkg_name,
@@ -539,7 +738,7 @@ async def get_packages(request: Request, db: Session = Depends(get_db)):
                                 "platforms": {}
                             }
                         packages[pkg_name]["platforms"][platform] = {
-                            "status": "FAILED",  # No file exists, so it failed
+                            "status": "FAILED",
                             "build_time": pkg_info.get("build_time", ""),
                             "error_message": "No package file found"
                         }
