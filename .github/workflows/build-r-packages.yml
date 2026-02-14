@@ -66,6 +66,7 @@ jobs:
             "tseries",
             "fracdiff",
             "forecast",
+            "fpp2",
             "httr",
             "memoise",
             "foreach",
