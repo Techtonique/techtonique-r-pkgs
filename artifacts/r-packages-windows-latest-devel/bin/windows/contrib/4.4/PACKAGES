@@ -1,12 +1,12 @@
 Package: ahead
-Version: 0.27.2
+Version: 0.33.0
 Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
         ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
 LinkingTo: Rcpp
 Suggests: caret, cclust, dfoptim, doSNOW, knitr, rmarkdown, testthat,
-        fpp, fpp2, glmnet, e1071, gam, quantreg, randomForest, spatial,
-        vars, roxygen2, ForecastComb
+        fpp2, glmnet, e1071, gam, quantreg, randomForest, spatial,
+        vars, roxygen2, ForecastComb, ranger, mboost, Mcomp, fGarch
 Archs: x64
 
 Package: bcn
@@ -25,12 +25,12 @@ Suggests: glmnet, testthat, forecast, randomForest, knitr, rmarkdown,
 License: file LICENSE
 
 Package: esgtoolkit
-Version: 1.8.0
+Version: 1.10.2
 Depends: R (>= 3.5.0), ggplot2, gridExtra, methods, reshape2,
         VineCopula, randtoolbox, zoo, data.table
 Imports: Rcpp(>= 0.11.0)
 LinkingTo: Rcpp
-Suggests: devtools, ggplot2, testthat, knitr, misc
+Suggests: devtools, ggplot2, testthat, knitr, misc, tseries
 Archs: x64
 
 Package: forecastingapi
@@ -46,18 +46,19 @@ Suggests: MASS, mda, misc
 Archs: x64
 
 Package: misc
-Version: 0.10.1
+Version: 0.10.4
 Depends: R (>= 3.5.0), MASS, stats, utils, foreach, doSNOW, snow
-Suggests: knitr, ranger, xgboost, lightgbm, scam, survival
+Suggests: knitr, ranger, xgboost, lightgbm, scam, survival, quantreg,
+        tseries, glmnet
 License: MIT
 
 Package: mlsauce
-Version: 0.25.3
-Imports: memoise, reticulate
+Version: 0.37.1
+Imports: reticulate
 Suggests: Rcpp, misc
 
 Package: nnetsauce
-Version: 0.31.1
+Version: 0.50.1
 Depends: R (>= 3.3.3), forecast, memoise
 Imports: reticulate
 Suggests: roxygen2, reticulate
