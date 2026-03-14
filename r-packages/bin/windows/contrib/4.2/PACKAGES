@@ -1,5 +1,5 @@
 Package: ahead
-Version: 0.33.0
+Version: 0.35.0
 Depends: R (>= 4.1.0)
 Imports: Rcpp (>= 1.0.6), misc, foreach, snow, forecast (>= 8.0),
         ggplot2 (>= 3.0.0), tseries, randtoolbox (>= 1.17)
@@ -53,9 +53,9 @@ Suggests: knitr, ranger, xgboost, lightgbm, scam, survival, quantreg,
 License: MIT
 
 Package: mlsauce
-Version: 0.37.1
+Version: 0.37.2
 Imports: reticulate
-Suggests: Rcpp, misc
+Suggests: Rcpp, misc, MASS
 
 Package: nnetsauce
 Version: 0.50.1
